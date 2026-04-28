@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nescafé Hack it — Resultados de encuesta — Samplia</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --white: #ffffff;
+      --bg: #f6f7f9;
+      --bg-card: #ffffff;
+      --border: rgba(0, 0, 0, .08);
+      --border-strong: rgba(0, 0, 0, .13);
+      --text-primary: #0a0a0a;
+      --text-secondary: #4a5568;
+      --text-tertiary: #8a9bb0;
+      --accent: #0066ff;
+      --accent-light: rgba(0, 102, 255, .08);
+      --accent-mid: rgba(0, 102, 255, .15);
+      --green: #00875a;
+      --green-light: rgba(0, 135, 90, .1);
+      --red: #c21d03;
+      --red-light: rgba(192, 57, 43, .1);
+      --amber: #d97706;
+      --amber-light: rgba(217, 119, 6, .1);
+      --shadow-xs: 0 1px 2px rgba(0, 0, 0, .05);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .07), 0 1px 2px rgba(0, 0, 0, .04);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, .06), 0 2px 4px -1px rgba(0, 0, 0, .04);
+      --shadow-lg: 0 10px 24px -4px rgba(0, 0, 0, .08), 0 4px 8px -2px rgba(0, 0, 0, .04);
+      --r-xs: 6px;
+      --r-sm: 10px;
+      --r-md: 14px;
+      --r-lg: 18px;
+      --r-xl: 22px;
+      --r-full: 999px;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCROLL PROGRESS ── */
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      z-index: 2000;
+      transition: width .1s linear;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      height: 32px;
+      display: block;
+      opacity: .9;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 10px;
+      border-radius: var(--r-full);
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.8);
+      }
+    }
+
+    .last-update {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .last-update:hover {
+      color: var(--text-secondary);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 24px 32px;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      color: var(--text-primary);
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 18px;
+      min-width: 220px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .meta-row svg {
+      flex-shrink: 0;
+      opacity: .5;
+    }
+
+    .meta-row strong {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 40px 0 16px;
+    }
+
+    .section-header:first-child {
+      margin-top: 0;
+    }
+
+    .section-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-inner {
+      padding: 20px;
+    }
+
+    .card-header {
+      margin-bottom: 16px;
+    }
+
+    .card-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 4px;
+    }
+
+    .card-question {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    /* ── KPI GRID ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .kpi-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .kpi-card-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+    }
+
+    .kpi-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-tertiary);
+      margin-bottom: 10px;
+    }
+
+    .kpi-value {
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    .bench-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--r-full);
+      margin-top: 6px;
+    }
+
+    .bench-tag.up {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .bench-tag.down {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
+    .bench-tag.neutral {
+      background: var(--bg);
+      color: var(--text-tertiary);
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-full);
+      padding: 6px 6px 6px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-xs);
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      transition: box-shadow .2s;
+    }
+
+    .filter-bar.is-sticky {
+      box-shadow: var(--shadow-md);
+    }
+
+    .filter-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+    }
+
+    .filter-sep {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .filter-select {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-full);
+      padding: 6px 28px 6px 12px;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%238a9bb0' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition: border-color .15s, background .15s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--accent);
+      background-color: var(--white);
+    }
+
+    /* ── CHARTS & GRIDS ── */
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .h220 {
+      height: clamp(160px, 26vw, 220px);
+    }
+
+    .h260 {
+      height: clamp(180px, 30vw, 260px);
+    }
+
+    .g2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    /* ── INSIGHTS ── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .insight-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .insight-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-light);
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .insight-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: 6px;
+    }
+
+    .insight-body {
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .insight-body strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-info {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--text-primary);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--r-full);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .2s, transform .15s, box-shadow .15s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: #1a1a1a;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .insight-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width:768px) {
+      .nav {
+        padding: 0 16px;
+      }
+
+      .hero {
+        padding: 24px 16px 20px;
+      }
+
+      .main {
+        padding: 20px 16px 48px;
+      }
+
+      .g2 {
+        grid-template-columns: 1fr;
+      }
+
+      .last-update {
+        display: none;
+      }
+
+      .filter-bar {
+        border-radius: var(--r-xl);
+        top: 56px;
+      }
+
+      .filter-sep {
+        display: none;
+      }
+
+      .filter-select {
+        flex: 1;
+      }
+    }
+
+    @media(max-width:520px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── GALLERY ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      background: var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, .9);
+      backdrop-filter: blur(4px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      opacity: 0;
+      transform: scale(.8);
+      transition: opacity .2s, transform .2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .9);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      cursor: zoom-out;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: var(--r-md);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+      transform: scale(.95);
+      transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lightbox.active .lightbox-img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, .2);
+    }
+
+    /* ── SCORE SUMMARY ── */
+    .score-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .score-summary-card {
+      background: var(--bg);
+      padding: 12px 14px;
+      border-radius: var(--r-md);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .score-summary-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-tertiary);
+    }
+
+    .score-summary-value {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .score-summary-card.insatisfechos .score-summary-value {
+      color: #c21d03;
+    }
+
+    .score-summary-card.neutral .score-summary-value {
+      color: #8a9bb0;
+    }
+
+    .score-summary-card.satisfechos .score-summary-value {
+      color: #3b82f6;
+    }
+
+    .score-summary-card.muy-satis .score-summary-value {
+      color: #2563eb;
+    }
+
+    .score-summary-card.media .score-summary-value {
+      color: #2563eb;
+    }
+
+    .chart-footer-info {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-top: 12px;
+    }
+
+    /* ── NPS STYLES ── */
+    .nps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .nps-summary-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .nps-score-card {
+      background: linear-gradient(-45deg, #2563eb, #3b82f6, #60a5fa, #2563eb);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #fff;
+      padding: 20px;
+      border-radius: var(--r-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, .2);
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .nps-score-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      opacity: .8;
+      margin-bottom: 8px;
+    }
+
+    .nps-score-value {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .nps-score-desc {
+      font-size: 11px;
+      opacity: .7;
+    }
+
+    .nps-stat-card {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: var(--r-xl);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nps-stat-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-tertiary);
+    }
+
+    .nps-stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .nps-stat-card.promoters .nps-stat-value {
+      color: #2563eb;
+    }
+
+    .nps-stat-card.passives .nps-stat-value {
+      color: #8a9bb0;
+    }
+
+    .nps-stat-card.detractors .nps-stat-value {
+      color: #c21d03;
+    }
+
+    .nps-stat-desc {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .nps-distribution-wrap {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: var(--r-xl);
+    }
+
+    .nps-dist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .nps-dist-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .nps-dist-legend {
+      font-size: 10px;
+      color: var(--text-tertiary);
+    }
+
+    .nps-bar-container {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: var(--r-full);
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .nps-bar {
+      height: 100%;
+      transition: width .6s ease;
+    }
+
+    .nps-bar.detractors {
+      background: #c21d03;
+    }
+
+    .nps-bar.passives {
+      background: #cbd5e0;
+    }
+
+    .nps-bar.promoters {
+      background: #2563eb;
+    }
+
+    .nps-dist-labels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .nps-dist-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nps-dist-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .nps-dist-name {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .nps-dist-labels .nps-dist-item:nth-child(2) {
+      text-align: center;
+    }
+
+    .nps-dist-labels .nps-dist-item:nth-child(3) {
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .nps-summary-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="scrollProgress"></div>
+
+  <nav class="nav">
+    <img class="nav-logo" src="https://samplia.com/assets/img/Samplia.svg" alt="Samplia" />
+    <div class="nav-right">
+      <div class="live-badge">
+        <div class="live-dot"></div>En vivo
+      </div>
+      <span class="last-update" id="lastUpdate">Cargando…</span>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Resultados de encuesta · Samplia</div>
+        <div class="hero-title">NESCAFÉ Espresso Concentrate</div>
+        <div class="hero-sub">Análisis de consumidores posterior a la degustación</div>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-row">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span><strong>Samplia X</strong> · Plaza Callao, Madrid</span>
+        </div>
+        <div class="meta-row">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span>Del <strong>09/04/2026</strong> al <strong>19/04/2026</strong></span>
+        </div>
+        <div class="meta-row">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+          <span><strong>12.496</strong> Degustaciones realizadas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <div class="kpi-grid" style="margin-bottom:12px;">
+      <div class="kpi-card">
+        <div class="kpi-card-bar" style="background:linear-gradient(90deg,var(--accent),#60a5fa);"></div>
+        <div class="kpi-label">Encuestados</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
+        <div class="kpi-sub">Usuarios que respondieron la encuesta</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card-bar" style="background:linear-gradient(90deg,#005880,#0077a8);"></div>
+        <div class="kpi-label">Conocimiento previo</div>
+        <div class="kpi-value" id="kpiKnew">—</div>
+        <div class="kpi-sub">Conocieron el producto con Samplia</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card-bar" style="background:linear-gradient(90deg,var(--green),#52c97b);"></div>
+        <div class="kpi-label">Comprarían</div>
+        <div class="kpi-value" style="color:var(--green);" id="kpiCompra">—</div>
+        <div id="benchCompraWrap"></div>
+        <div class="kpi-sub">Sí, lo comprare</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-card-bar" style="background:linear-gradient(90deg,var(--amber),#fbbf24);"></div>
+        <div class="kpi-label">Valoración media</div>
+        <div class="kpi-value" style="color:var(--amber);" id="kpiScore">—</div>
+        <div id="benchScoreWrap"></div>
+        <div class="kpi-sub">Escala 1–10</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:36px;">
+      <div class="section-dot"></div>
+      <div class="section-title">Demográficos</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="filter-bar" style="margin-bottom:16px;">
+      <span class="filter-label">Filtrar</span>
+      <div class="filter-sep"></div>
+      <span class="filter-label" style="font-size:9px;">Género</span>
+      <select class="filter-select" id="fGender">
+        <option value="">Todos</option>
+        <option value="F">Femenino</option>
+        <option value="M">Masculino</option>
+      </select>
+      <div class="filter-sep"></div>
+      <span class="filter-label" style="font-size:9px;">Edad</span>
+      <select class="filter-select" id="fAge">
+        <option value="">Todos</option>
+        <option value="18-24">18–24</option>
+        <option value="25-34">25–34</option>
+        <option value="35-44">35–44</option>
+        <option value="45-54">45–54</option>
+        <option value="55-64">55–64</option>
+        <option value="65+">65+</option>
+      </select>
+      <div class="filter-sep"></div>
+      <span class="filter-label" style="font-size:9px;">Variedad</span>
+      <select class="filter-select" id="fVariedad">
+        <option value="">Todas</option>
+      </select>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Distribución por género</div>
+          </div>
+          <div class="chart-wrap h220"><canvas id="cGender"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Distribución por rango de edad</div>
+          </div>
+          <div class="chart-wrap h220"><canvas id="cAge"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Variedad probada</div>
+            <div class="card-question">¿Qué variedad de Nescafé Espresso Concentrate has tenido la oportunidad de
+              probar?</div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cVariedad"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Conocimiento previo de marca</div>
+            <div class="card-question">Antes de obtener la muestra, ¿Conocías este producto que has probado con Samplia?
+            </div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cConocia"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-dot"></div>
+      <div class="section-title">Experiencia con el producto</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Momento de consumo</div>
+            <div class="card-question">¿En qué momento del día ves más probable utilizar Nescafé Espresso Concentrate?
+            </div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cMomento"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Atributo más valorado</div>
+            <div class="card-question">¿Qué es lo que más valoras de este nuevo formato concentrado?</div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cValoras"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-label">VALORACIÓN DEL SABOR</div>
+          <div class="card-question">En general, ¿qué te ha parecido su sabor?</div>
+        </div>
+
+        <div class="score-summary-grid">
+          <div class="score-summary-card insatisfechos">
+            <span class="score-summary-label">INSATISFECHOS</span>
+            <span class="score-summary-value" id="valInsatisfechos">—</span>
+          </div>
+          <div class="score-summary-card neutral">
+            <span class="score-summary-label">NEUTRAL (5–6)</span>
+            <span class="score-summary-value" id="valNeutral">—</span>
+          </div>
+          <div class="score-summary-card satisfechos">
+            <span class="score-summary-label">SATISFECHOS</span>
+            <span class="score-summary-value" id="valSatisfechos">—</span>
+          </div>
+          <div class="score-summary-card muy-satis">
+            <span class="score-summary-label">MUY SATIS.</span>
+            <span class="score-summary-value" id="valMuySatis">—</span>
+          </div>
+          <div class="score-summary-card media">
+            <span class="score-summary-label">MEDIA</span>
+            <span class="score-summary-value" id="valMedia">—</span>
+          </div>
+        </div>
+
+        <div class="chart-wrap h260">
+          <canvas id="cScore"></canvas>
+        </div>
+        <div class="chart-footer-info" id="scoreFooterInfo">
+          —
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-label">FACILIDAD DE PREPARACIÓN</div>
+          <div class="card-question">¿Qué tan fácil te parece prepararte un café frío de calidad con este producto en
+            comparación con otros métodos?</div>
+        </div>
+
+        <div class="score-summary-grid">
+          <div class="score-summary-card insatisfechos">
+            <span class="score-summary-label">DIFÍCIL (1–4)</span>
+            <span class="score-summary-value" id="valInsatisfechosFac">—</span>
+          </div>
+          <div class="score-summary-card neutral">
+            <span class="score-summary-label">NEUTRAL (5–6)</span>
+            <span class="score-summary-value" id="valNeutralFac">—</span>
+          </div>
+          <div class="score-summary-card satisfechos">
+            <span class="score-summary-label">FÁCIL (7–8)</span>
+            <span class="score-summary-value" id="valSatisfechosFac">—</span>
+          </div>
+          <div class="score-summary-card muy-satis">
+            <span class="score-summary-label">MUY FÁCIL (9–10)</span>
+            <span class="score-summary-value" id="valMuySatisFac">—</span>
+          </div>
+          <div class="score-summary-card media">
+            <span class="score-summary-label">MEDIA</span>
+            <span class="score-summary-value" id="valMediaFac">—</span>
+          </div>
+        </div>
+
+        <div class="chart-wrap h260">
+          <canvas id="cFacilidad"></canvas>
+        </div>
+        <div class="chart-footer-info" id="facilidadFooterInfo">
+          —
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:36px;">
+      <div class="section-dot"></div>
+      <div class="section-title">Intención de compra</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Próxima compra</div>
+            <div class="card-question">¿Qué tan probable es que incluyas este producto en tu próxima compra?</div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cCompra"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-label">Razones para no comprar</div>
+            <div class="card-question">¿Cuál es el motivo principal?</div>
+          </div>
+          <div class="chart-wrap h260"><canvas id="cMotivo"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-label">INTENCIÓN DE RECOMENDACIÓN</div>
+          <div class="card-question">¿Recomendarías NESCAFÉ Espresso Concentrate a un familiar o amigo?</div>
+        </div>
+
+        <div class="nps-container">
+          <div class="nps-summary-row">
+            <div class="nps-score-card">
+              <div class="nps-score-label">NPS NESCAFÉ Concentrate</div>
+              <div class="nps-score-value" id="npsValue">—</div>
+              <div class="nps-score-desc">Promotores menos detractores</div>
+            </div>
+            <div class="nps-stat-card promoters">
+              <div class="nps-stat-label">Promotores</div>
+              <div class="nps-stat-value" id="npsPctPromoters">—</div>
+              <div class="nps-stat-desc" id="npsCountPromoters">— respuestas · 9-10</div>
+            </div>
+            <div class="nps-stat-card passives">
+              <div class="nps-stat-label">Pasivos</div>
+              <div class="nps-stat-value" id="npsPctPassives">—</div>
+              <div class="nps-stat-desc" id="npsCountPassives">— respuestas · 7-8</div>
+            </div>
+            <div class="nps-stat-card detractors">
+              <div class="nps-stat-label">Detractores</div>
+              <div class="nps-stat-value" id="npsPctDetractors">—</div>
+              <div class="nps-stat-desc" id="npsCountDetractors">— respuestas · 0-6</div>
+            </div>
+          </div>
+
+          <div class="nps-distribution-wrap">
+            <div class="nps-dist-header">
+              <div class="nps-dist-title">Distribución NPS</div>
+              <div class="nps-dist-legend">0-6 detractores · 7-8 pasivos · 9-10 promotores</div>
+            </div>
+            <div class="nps-bar-container">
+              <div class="nps-bar detractors" id="npsBarDetractors" style="width: 0%"></div>
+              <div class="nps-bar passives" id="npsBarPassives" style="width: 0%"></div>
+              <div class="nps-bar promoters" id="npsBarPromoters" style="width: 0%"></div>
+            </div>
+            <div class="nps-dist-labels">
+              <div class="nps-dist-item">
+                <div class="nps-dist-val" id="npsDistDetractors">—</div>
+                <div class="nps-dist-name">Detractores</div>
+              </div>
+              <div class="nps-dist-item">
+                <div class="nps-dist-val" id="npsDistPassives">—</div>
+                <div class="nps-dist-name">Pasivos</div>
+              </div>
+              <div class="nps-dist-item">
+                <div class="nps-dist-val" id="npsDistPromoters">—</div>
+                <div class="nps-dist-name">Promotores</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-dot"></div>
+      <div class="section-title">Insights de negocio</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="insight-grid" style="margin-bottom:12px;">
+      <div class="insight-card">
+        <div class="insight-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+            <path d="M3 6h18" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+        </div>
+        <div>
+          <div class="insight-title">Intención de compra</div>
+          <div class="insight-body" id="insight1">—</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+        </div>
+        <div>
+          <div class="insight-title">Valoración del producto</div>
+          <div class="insight-body" id="insight2">—</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <div class="insight-title">Atributo más valorado</div>
+          <div class="insight-body" id="insight3">—</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </div>
+        <div>
+          <div class="insight-title">Momento de consumo</div>
+          <div class="insight-body" id="insight4">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-header" style="margin-top:36px;">
+      <div class="section-dot"></div>
+      <div class="section-title">Fotos de la campaña</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="gallery-grid" style="margin-bottom:32px;">
+      <div class="gallery-item"
+        onclick="openLightbox('https://lh3.googleusercontent.com/d/1Ns1uB_1ENS1Gi6s3M4Nc6pfpavzrWYF3')">
+        <img src="https://lh3.googleusercontent.com/d/1Ns1uB_1ENS1Gi6s3M4Nc6pfpavzrWYF3" alt="Campaña 1" loading="lazy">
+        <div class="gallery-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item"
+        onclick="openLightbox('https://lh3.googleusercontent.com/d/12bGNBhgKixYobVdJGgdR9MAd7G4qbs4B')">
+        <img src="https://lh3.googleusercontent.com/d/12bGNBhgKixYobVdJGgdR9MAd7G4qbs4B" alt="Campaña 2" loading="lazy">
+        <div class="gallery-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item"
+        onclick="openLightbox('https://lh3.googleusercontent.com/d/1NKmxtzqXP3o1eXqqBsBODlNNivbQImta')">
+        <img src="https://lh3.googleusercontent.com/d/1NKmxtzqXP3o1eXqqBsBODlNNivbQImta" alt="Campaña 3" loading="lazy">
+        <div class="gallery-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="gallery-item"
+        onclick="openLightbox('https://lh3.googleusercontent.com/d/1eYOKD5nu9fzJJfS93iKJbWTZIISf8H79')">
+        <img src="https://lh3.googleusercontent.com/d/1eYOKD5nu9fzJJfS93iKJbWTZIISf8H79" alt="Campaña 4" loading="lazy">
+        <div class="gallery-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-info" id="footerInfo">Degustaciones realizadas: 12896 · Campaña 09/04/2026 – 19/04/2026</span>
+      <button class="btn-primary" id="downloadPdfBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Descargar PDF
+      </button>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    Chart.defaults.font.family = "'Poppins', sans-serif";
+
+    // Paleta de colores EXACTA de Pascual Lateado (index.html original)
+    const AZURE = ['#0066ff', '#3385ff', '#4d94ff', '#6ba3ff', '#99bbff', '#c2d8ff', '#e0eaff', '#0044bb'];
+
+    const GSHEET_URL = 'https://docs.google.com/spreadsheets/d/17p2A1teUbtoIj9_XlobCLCbNJ7i8zLU26A7OMvvCKN0/gviz/tq?tqx=out:json&gid=911876777';
+    const BENCH_COMPRA = 42;
+    const BENCH_SCORE = 8.5;
+
+    let allRows = [], allHeaders = [], charts = {};
+    let CI = {};
+
+    /* ── UTILIDADES ── */
+    function normalize(str) { return (str || '').toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase(); }
+
+    function detectColumns(headers) {
+      CI.gender = headers.findIndex(h => normalize(h).includes('genero') || normalize(h).includes('sexo') || normalize(h) === 'gender');
+      CI.age = headers.findIndex(h => normalize(h).includes('edad') || normalize(h) === 'user_age');
+      CI.variedad = headers.findIndex(h => h.includes('¿Qué variedad de Nescafé Espresso Concentrate has tenido la oportunidad de probar?'));
+      CI.conocia = headers.findIndex(h => h.includes('Antes de obtener la muestra, ¿Conocías este producto que has probado con Samplia?'));
+      CI.momento = headers.findIndex(h => h.includes('¿En qué momento del día ves más probable utilizar Nescafé Espresso Concentrate?'));
+      CI.valoras = headers.findIndex(h => h.includes('¿Qué es lo que más valoras de este nuevo formato concentrado?'));
+      CI.score = headers.findIndex(h => h.includes('Tras probar el producto, ¿Cuál es tu impresión general?'));
+      CI.facilidad = headers.findIndex(h => h.includes('¿Qué tan fácil te parece prepararte un café frío de calidad con este producto en comparación con otros métodos'));
+      CI.compra = headers.findIndex(h => h.includes('¿Qué tan probable es que incluyas este producto en tu próxima compra?'));
+      CI.motivo = headers.findIndex(h => h.includes('¿Cuál es el motivo principal?'));
+      CI.nps = headers.findIndex(h => h.includes('¿Recomendarías a un amigo o familiar comprar este producto que has probado con Samplia?'));
+    }
+
+    function ageGroup(val) {
+      const n = parseInt(val);
+      if (isNaN(n)) return null;
+      if (n >= 0 && n <= 24) return '18-24';
+      if (n >= 25 && n <= 34) return '25-34';
+      if (n >= 35 && n <= 44) return '35-44';
+      if (n >= 45 && n <= 54) return '45-54';
+      if (n >= 55 && n <= 64) return '55-64';
+      return '65+';
+    }
+
+    function getCol(rows, idx) { return idx >= 0 ? rows.map(r => (r[idx] || '').toString().trim()).filter(v => v !== '') : []; }
+    function pct(n, total) { return total > 0 ? Math.round((n / total) * 100) : 0; }
+    function countSingle(arr) { const m = {}; arr.forEach(v => { if (v) m[v] = (m[v] || 0) + 1; }); return m; }
+    function sortedEntries(map, limit = 10) { return Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, limit); }
+    function wrapLabel(label, max = 25) {
+      if (label.length <= max) return label;
+      const w = label.split(' '), lines = []; let curr = '';
+      w.forEach(word => { if ((curr + ' ' + word).length > max) { lines.push(curr); curr = word; } else curr = (curr + ' ' + word).trim(); });
+      if (curr) lines.push(curr); return lines;
+    }
+
+    function destroyChart(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+    /* ── CHART BUILDERS ── */
+    function makeBarChart(id, labels, data, horizontal = false, isScore = false, hideY = false, hideX = false, customColors = null) {
+      destroyChart(id);
+      const ctx = document.getElementById(id); if (!ctx || data.length === 0) return;
+      const total = data.reduce((a, b) => a + b, 0);
+      const isMob = window.innerWidth <= 768; const fs = isMob ? 9 : 10;
+
+      let colors;
+      if (customColors) {
+        colors = customColors;
+      } else if (isScore) {
+        colors = labels.map(l => {
+          const n = parseFloat(l);
+          if (n >= 9) return '#2563eb';
+          if (n >= 7) return '#60a5fa';
+          if (n >= 5) return '#cbd5e0';
+          return '#e57373';
+        });
+      } else {
+        colors = labels.map((_, i) => AZURE[i % AZURE.length]);
+      }
+
+      charts[id] = new Chart(ctx, {
+        type: 'bar',
+        data: { labels: labels.map(l => wrapLabel(l, horizontal ? 35 : 15)), datasets: [{ data, backgroundColor: colors, borderRadius: 5 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          indexAxis: horizontal ? 'y' : 'x',
+          plugins: {
+            legend: { display: false },
+            tooltip: { backgroundColor: '#0a0a0a', titleFont: { family: "'Poppins',sans-serif", weight: 600, size: 11 }, bodyFont: { family: "'Poppins',sans-serif", size: 11 } },
+            datalabels: {
+              anchor: horizontal ? 'end' : 'end', align: horizontal ? 'end' : 'top',
+              formatter: v => total > 0 ? Math.round((v / total) * 100) + '%' : '',
+              font: { family: "'Poppins',sans-serif", weight: 600, size: fs }, color: '#4a5568'
+            }
+          },
+          layout: { padding: { top: !horizontal ? 18 : 0, right: horizontal ? 48 : 0, left: horizontal ? 2 : 0 } },
+          scales: {
+            x: { display: !hideX, grid: { display: horizontal && !hideX, color: 'rgba(0,0,0,.04)' }, ticks: { font: { family: "'Poppins',sans-serif", size: fs }, color: '#8a9bb0' }, grace: horizontal ? '12%' : 0 },
+            y: { display: !hideY, grid: { color: 'rgba(0,0,0,.04)', display: !horizontal && !hideY }, ticks: { font: { family: "'Poppins',sans-serif", size: fs }, color: '#8a9bb0' }, grace: !horizontal ? '14%' : 0 }
+          }
+        },
+        plugins: [ChartDataLabels]
+      });
+    }
+
+    function makeDonutChart(id, labels, data, colors) {
+      destroyChart(id);
+      const ctx = document.getElementById(id); if (!ctx || data.length === 0) return;
+      const total = data.reduce((a, b) => a + b, 0);
+      const isMob = window.innerWidth <= 768; const fs = isMob ? 9 : 10;
+
+      charts[id] = new Chart(ctx, {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 3, borderColor: '#ffffff' }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { display: true, position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', font: { family: "'Poppins',sans-serif", size: fs }, color: '#4a5568', padding: 12 } },
+            datalabels: { formatter: v => total > 0 ? Math.round(v / total * 100) + '%' : '', font: { family: "'Poppins',sans-serif", weight: 700, size: fs }, color: '#ffffff' }
+          }
+        },
+        plugins: [ChartDataLabels]
+      });
+    }
+
+    /* ── CORE RENDER ── */
+    function render(rows) {
+      const total = rows.length;
+      document.getElementById('kpiTotal').textContent = total.toLocaleString('es-ES');
+
+      // KPI: Conocimiento
+      const conociaArr = getCol(rows, CI.conocia);
+      const noConocia = conociaArr.filter(v => v.includes('No los conocía')).length;
+      document.getElementById('kpiKnew').textContent = conociaArr.length > 0 ? pct(noConocia, conociaArr.length) + '%' : '—';
+
+      // KPI: Intención de Compra
+      const compraArr = getCol(rows, CI.compra);
+      const siCompra = compraArr.filter(v => v.includes('Sí, lo comprare') || v.includes('Sí')).length;
+      const pctCompra = pct(siCompra, compraArr.length);
+      document.getElementById('kpiCompra').textContent = compraArr.length > 0 ? pctCompra + '%' : '—';
+
+      const diffC = pctCompra - BENCH_COMPRA;
+      document.getElementById('benchCompraWrap').innerHTML = compraArr.length > 0
+        ? `<div class="bench-tag ${diffC >= 0 ? 'up' : 'down'}">${diffC >= 0 ? '↑' : '↓'} Bench ${BENCH_COMPRA}% (${diffC >= 0 ? '+' : ''}${diffC}pp)</div>` : '';
+
+      // KPI: Valoración Media
+      const scoreArr = getCol(rows, CI.score).map(v => parseFloat(v)).filter(n => !isNaN(n) && n >= 0 && n <= 10);
+      const avgScore = scoreArr.length > 0 ? (scoreArr.reduce((a, b) => a + b, 0) / scoreArr.length) : 0;
+      document.getElementById('kpiScore').textContent = scoreArr.length > 0 ? avgScore.toFixed(1) : '—';
+
+      const diffS = parseFloat((avgScore - BENCH_SCORE).toFixed(1));
+      document.getElementById('benchScoreWrap').innerHTML = scoreArr.length > 0
+        ? `<div class="bench-tag ${diffS >= 0 ? 'up' : 'down'}">${diffS >= 0 ? '↑' : '↓'} Bench ${BENCH_SCORE} (${diffS >= 0 ? '+' : ''}${diffS})</div>` : '';
+
+      // Gráficos Demográficos
+      const genderMap = countSingle(getCol(rows, CI.gender).map(g => {
+        let n = normalize(g); return n.startsWith('m') ? 'Masculino' : n.startsWith('f') ? 'Femenino' : 'Otro';
+      }).filter(g => g !== 'Otro'));
+      makeDonutChart('cGender', Object.keys(genderMap), Object.values(genderMap), ['#0066ff', '#cc4400']);
+
+      const ageRanges = ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'];
+      const ageDist = {}; ageRanges.forEach(r => ageDist[r] = 0);
+      getCol(rows, CI.age).forEach(v => { const g = ageGroup(v); if (g) ageDist[g]++; });
+      makeBarChart('cAge', ageRanges, ageRanges.map(r => ageDist[r]), false, false, true);
+
+      // Variedad & Conocimiento
+      const varMap = sortedEntries(countSingle(getCol(rows, CI.variedad)), 5);
+      const varColors = varMap.map(e => {
+        const l = normalize(e[0]);
+        if (l.includes('espresso') || l.includes('black')) return '#0f0101';
+        if (l.includes('vanilla') || l.includes('vainilla')) return '#28C9B7';
+        if (l.includes('sweet') || l.includes('dulce')) return '#3385ff';
+        return AZURE[0];
+      });
+      makeDonutChart('cVariedad', varMap.map(e => e[0]), varMap.map(e => e[1]), varColors);
+
+      const conMap = sortedEntries(countSingle(conociaArr), 4);
+      makeBarChart('cConocia', conMap.map(e => e[0]), conMap.map(e => e[1]), true, false, false, true);
+
+      // Momento & Valor
+      const momMap = sortedEntries(countSingle(getCol(rows, CI.momento)), 5);
+      makeBarChart('cMomento', momMap.map(e => e[0]), momMap.map(e => e[1]), true, false, false, true);
+
+      const valMap = sortedEntries(countSingle(getCol(rows, CI.valoras)), 6);
+      makeBarChart('cValoras', valMap.map(e => e[0]), valMap.map(e => e[1]), true, false, false, true);
+
+      // Score logic
+      const scoreMap = {};
+      for (let i = 1; i <= 10; i++) scoreMap[i] = 0;
+      scoreArr.forEach(n => { scoreMap[Math.round(n)]++; });
+
+      const sTotal = scoreArr.length;
+      const nInsatis = scoreArr.filter(n => n <= 4).length;
+      const nNeutral = scoreArr.filter(n => n >= 5 && n <= 6).length;
+      const nSatis = scoreArr.filter(n => n >= 7 && n <= 8).length;
+      const nMuySatis = scoreArr.filter(n => n >= 9).length;
+
+      document.getElementById('valInsatisfechos').textContent = sTotal > 0 ? pct(nInsatis, sTotal) + '%' : '—';
+      document.getElementById('valNeutral').textContent = sTotal > 0 ? pct(nNeutral, sTotal) + '%' : '—';
+      document.getElementById('valSatisfechos').textContent = sTotal > 0 ? pct(nSatis, sTotal) + '%' : '—';
+      document.getElementById('valMuySatis').textContent = sTotal > 0 ? pct(nMuySatis, sTotal) + '%' : '—';
+      document.getElementById('valMedia').textContent = sTotal > 0 ? avgScore.toFixed(1) : '—';
+      document.getElementById('scoreFooterInfo').textContent = sTotal > 0 ? `n=${sTotal} · Media: ${avgScore.toFixed(1)}/10` : '—';
+
+      makeBarChart('cScore', Object.keys(scoreMap), Object.values(scoreMap), false, true, true);
+
+      // Facilidad logic
+      const facArr = getCol(rows, CI.facilidad).map(v => parseFloat(v)).filter(n => !isNaN(n) && n >= 0 && n <= 10);
+      const avgFac = facArr.length > 0 ? (facArr.reduce((a, b) => a + b, 0) / facArr.length) : 0;
+      const fTotal = facArr.length;
+
+      const facMap = {};
+      for (let i = 1; i <= 10; i++) facMap[i] = 0;
+      facArr.forEach(n => { facMap[Math.round(n)]++; });
+
+      const fInsatis = facArr.filter(n => n <= 4).length;
+      const fNeutral = facArr.filter(n => n >= 5 && n <= 6).length;
+      const fSatis = facArr.filter(n => n >= 7 && n <= 8).length;
+      const fMuySatis = facArr.filter(n => n >= 9).length;
+
+      document.getElementById('valInsatisfechosFac').textContent = fTotal > 0 ? pct(fInsatis, fTotal) + '%' : '—';
+      document.getElementById('valNeutralFac').textContent = fTotal > 0 ? pct(fNeutral, fTotal) + '%' : '—';
+      document.getElementById('valSatisfechosFac').textContent = fTotal > 0 ? pct(fSatis, fTotal) + '%' : '—';
+      document.getElementById('valMuySatisFac').textContent = fTotal > 0 ? pct(fMuySatis, fTotal) + '%' : '—';
+      document.getElementById('valMediaFac').textContent = fTotal > 0 ? avgFac.toFixed(1) : '—';
+      document.getElementById('facilidadFooterInfo').textContent = fTotal > 0 ? `n=${fTotal} · Media: ${avgFac.toFixed(1)}/10` : '—';
+
+      makeBarChart('cFacilidad', Object.keys(facMap), Object.values(facMap), false, true, true);
+
+      // Compra & Motivo
+      const compRaw = countSingle(compraArr);
+      const compMapLabels = {
+        'Sí, lo compraré': 'Compradores Potenciales',
+        'Aún no lo sé': 'Indeciso',
+        'No lo compraré': 'No compradores'
+      };
+      const compOrder = ['Sí, lo compraré', 'Aún no lo sé', 'No lo compraré'];
+      const compData = compOrder.map(rawLabel => {
+        const key = Object.keys(compRaw).find(k => k.includes(rawLabel)) || rawLabel;
+        return [compMapLabels[rawLabel] || rawLabel, compRaw[key] || 0];
+      });
+      const compColors = ['#2563eb', '#cbd5e0', '#e57373'];
+      makeBarChart('cCompra', compData.map(e => e[0]), compData.map(e => e[1]), true, false, false, true, compColors);
+
+      const motMap = sortedEntries(countSingle(getCol(rows, CI.motivo)), 6);
+      makeBarChart('cMotivo', motMap.map(e => e[0]), motMap.map(e => e[1]), true, false, false, true, motMap.map(() => '#e57373'));
+
+      // NPS Logic
+      const npsArr = getCol(rows, CI.nps).map(v => parseFloat(v)).filter(n => !isNaN(n) && n >= 0 && n <= 10);
+      const nTotal = npsArr.length;
+
+      const nProm = npsArr.filter(n => n >= 9).length;
+      const nPass = npsArr.filter(n => n >= 7 && n <= 8).length;
+      const nDetr = npsArr.filter(n => n <= 6).length;
+
+      const pProm = pct(nProm, nTotal);
+      const pPass = pct(nPass, nTotal);
+      const pDetr = pct(nDetr, nTotal);
+      const npsValue = pProm - pDetr;
+
+      document.getElementById('npsValue').textContent = nTotal > 0 ? (npsValue > 0 ? '+' : '') + npsValue : '—';
+      document.getElementById('npsPctPromoters').textContent = nTotal > 0 ? pProm + '%' : '—';
+      document.getElementById('npsPctPassives').textContent = nTotal > 0 ? pPass + '%' : '—';
+      document.getElementById('npsPctDetractors').textContent = nTotal > 0 ? pDetr + '%' : '—';
+
+      document.getElementById('npsCountPromoters').textContent = `${nProm} respuestas · 9-10`;
+      document.getElementById('npsCountPassives').textContent = `${nPass} respuestas · 7-8`;
+      document.getElementById('npsCountDetractors').textContent = `${nDetr} respuestas · 0-6`;
+
+      document.getElementById('npsBarPromoters').style.width = pProm + '%';
+      document.getElementById('npsBarPassives').style.width = pPass + '%';
+      document.getElementById('npsBarDetractors').style.width = pDetr + '%';
+
+      document.getElementById('npsDistPromoters').textContent = pProm + '%';
+      document.getElementById('npsDistPassives').textContent = pPass + '%';
+      document.getElementById('npsDistDetractors').textContent = pDetr + '%';
+
+      // Insights Lógica
+      document.getElementById('insight1').innerHTML = `El <strong>${pctCompra}%</strong> de los encuestados afirma que incluirá el producto en su próxima compra, situándose <strong>${diffC >= 0 ? 'por encima' : 'por debajo'}</strong> del benchmark promedio (${BENCH_COMPRA}%).`;
+      document.getElementById('insight2').innerHTML = `El producto obtiene un excelente <strong>${avgScore.toFixed(1)}/10</strong> en satisfacción general, validando su propuesta dentro de la categoría.`;
+
+      const topVal = valMap.length > 0 ? valMap[0][0] : '—';
+      document.getElementById('insight3').innerHTML = `El atributo decisor más valorado es <strong>"${topVal}"</strong>, indicando una clara ventaja percibida por el usuario sobre el formato líquido concentrado.`;
+
+      const topMom = momMap.length > 0 ? momMap[0][0] : '—';
+      document.getElementById('insight4').innerHTML = `El consumo está orientado predominantemente hacia <strong>"${topMom}"</strong>, definiendo el momento clave para campañas de fidelización.`;
+    }
+
+    /* ── FILTRADO Y CARGA ── */
+    function getFiltered() {
+      const g = document.getElementById('fGender').value;
+      const a = document.getElementById('fAge').value;
+      const v = document.getElementById('fVariedad').value;
+      return allRows.filter(r => {
+        if (g && CI.gender >= 0) {
+          const gen = normalize(r[CI.gender]);
+          if (g === 'F' && !gen.startsWith('f')) return false;
+          if (g === 'M' && !gen.startsWith('m')) return false;
+        }
+        if (a && CI.age >= 0 && ageGroup(r[CI.age]) !== a) return false;
+        if (v && CI.variedad >= 0 && (r[CI.variedad] || '').toString().trim() !== v) return false;
+        return true;
+      });
+    }
+
+    function populateVariedadFilter() {
+      if (CI.variedad < 0) return;
+      const arr = getCol(allRows, CI.variedad);
+      const unique = [...new Set(arr)].sort();
+      const sel = document.getElementById('fVariedad');
+      sel.innerHTML = '<option value="">Todas</option>';
+      unique.forEach(val => { const o = document.createElement('option'); o.value = val; o.textContent = val; sel.appendChild(o); });
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch(GSHEET_URL);
+        const text = await res.text();
+        const json = JSON.parse(text.replace(/^[^\{]+/, '').replace(/[^\}]+$/, ''));
+
+        allHeaders = json.table.cols.map(c => c.label || c.id || '');
+        detectColumns(allHeaders);
+
+        allRows = json.table.rows.map(r => r.c.map(c => c ? (c.v ?? c.f ?? '') : ''));
+        if (allRows.length === 0) throw new Error("Dataset vacío.");
+
+        populateVariedadFilter();
+        render(getFiltered());
+
+        const now = new Date();
+        document.getElementById('lastUpdate').textContent = `Actualizado ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
+      } catch (err) {
+        console.error(err);
+        document.getElementById('lastUpdate').textContent = 'Error al cargar datos';
+      }
+    }
+
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const ws = document.body.scrollTop || document.documentElement.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scrollProgress').style.width = (ws / h * 100) + '%';
+    });
+
+    // Filtros sticky
+    const fb = document.querySelector('.filter-bar');
+    if (fb) {
+      const obs = new IntersectionObserver(([e]) => { fb.classList.toggle('is-sticky', e.intersectionRatio < 1); }, { threshold: [1], rootMargin: '-65px 0px 0px 0px' });
+      obs.observe(fb);
+    }
+
+    // Eventos de filtro
+    ['fGender', 'fAge', 'fVariedad'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => render(getFiltered()));
+    });
+
+    // Resize
+    let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { if (allRows.length > 0) render(getFiltered()); }, 250); });
+
+    // PDF Download
+    document.getElementById('downloadPdfBtn').addEventListener('click', async function () {
+      const btn = this; const orig = btn.innerHTML;
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Generando…';
+      btn.disabled = true;
+      try {
+        const { jsPDF } = window.jspdf; const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfW = 210, mg = 12, usable = pdfW - mg * 2;
+        let y = mg + 8;
+        const blocks = Array.from(document.querySelector('.main').children).filter(el => !el.classList.contains('filter-bar') && el.tagName !== 'SCRIPT');
+        for (const block of blocks) {
+          const canvas = await html2canvas(block, { scale: 1.5, useCORS: true, backgroundColor: '#f6f7f9' });
+          const img = canvas.toDataURL('image/jpeg', .85); const dh = canvas.height * (usable / canvas.width);
+          if (y + dh > 297 - mg) { pdf.addPage(); y = mg; }
+          pdf.addImage(img, 'JPEG', mg, y, usable, dh); y += dh + 4;
+        }
+        pdf.save('Resultados_Nescafé_Hackit.pdf');
+      } catch (err) { console.error(err); alert('Error al generar el PDF.'); }
+      finally { btn.innerHTML = orig; btn.disabled = false; }
+    });
+
+    function openLightbox(url) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      img.src = url;
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Iniciar
+    loadData();
+  </script>
+  <style>
+    @keyframes spin {
+      from {
+        transform: rotate(0deg)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+  </style>
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </div>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Vista ampliada">
+  </div>
+</body>
+
+</html>
