@@ -770,6 +770,38 @@
       color: #2563eb;
     }
 
+    /* ── AGE STATS BADGES ── */
+    .age-stats-badges {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .age-badge {
+      background: var(--bg);
+      padding: 7px 12px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      border: 1px solid var(--border);
+    }
+
+    .age-badge-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      letter-spacing: .05em;
+    }
+
+    .age-badge-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
     .chart-footer-info {
       text-align: center;
       font-size: 11px;
@@ -1017,7 +1049,7 @@
             <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          <span><strong>12.496</strong> Degustaciones realizadas</span>
+          <span><strong>12.896</strong> Degustaciones realizadas</span>
         </div>
       </div>
     </div>
@@ -1100,6 +1132,16 @@
         <div class="card-inner">
           <div class="card-header">
             <div class="card-label">Distribución por rango de edad</div>
+          </div>
+          <div class="age-stats-badges">
+            <div class="age-badge">
+              <span class="age-badge-label">Media de edad</span>
+              <span class="age-badge-value" id="ageMean">—</span>
+            </div>
+            <div class="age-badge">
+              <span class="age-badge-label">Moda de edad</span>
+              <span class="age-badge-value" id="ageMode">—</span>
+            </div>
           </div>
           <div class="chart-wrap h220"><canvas id="cAge"></canvas></div>
         </div>
@@ -1623,6 +1665,18 @@
 
       const ageRanges = ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'];
       const ageDist = {}; ageRanges.forEach(r => ageDist[r] = 0);
+      const rawAges = getCol(rows, CI.age).map(v => parseInt(v)).filter(n => !isNaN(n));
+
+      // Cálculo de Media y Moda
+      const meanAge = rawAges.length > 0 ? (rawAges.reduce((a, b) => a + b, 0) / rawAges.length).toFixed(1) : '—';
+      let modeAge = '—';
+      if (rawAges.length > 0) {
+        const counts = countSingle(rawAges);
+        modeAge = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+      }
+      document.getElementById('ageMean').textContent = meanAge !== '—' ? meanAge + ' años' : '—';
+      document.getElementById('ageMode').textContent = modeAge !== '—' ? modeAge + ' años' : '—';
+
       getCol(rows, CI.age).forEach(v => { const g = ageGroup(v); if (g) ageDist[g]++; });
       makeBarChart('cAge', ageRanges, ageRanges.map(r => ageDist[r]), false, false, true);
 
